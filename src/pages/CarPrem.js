@@ -1,8 +1,9 @@
 import * as React from 'react';
 import "../components/CarPrem.css"
-import { getAllCars } from "../api";
 import BasicTableOverview from '../components/caroverview/tableoverview';
 import LotOverview from "../components/caroverview/caroverview";
+import CreateCarModal from "../components/caroverview/CreateCarModal";
+import { getAllCars } from '../carComponent';
 
 function Home() {
     const [listOfCars, setListOfCars] = React.useState([]); 
@@ -26,7 +27,7 @@ function Home() {
               <div className="column">
                 <div className="module" id="overview">
                   <div className="moduletitle">
-                  <h2>Overview</h2>
+                  <h2>Overview</h2> <CreateCarModal/>
                   </div>
                   <BasicTableOverview listOfCars={listOfCars} />
                 </div>

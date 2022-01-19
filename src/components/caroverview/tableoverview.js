@@ -25,11 +25,11 @@ export default function BasicTableOverview(props) {
           </TableHead>
             <TableBody className="body" >
               {props.listOfCars.map((car) => (
-                <TableRow className="tablerow" key={car.carLicenseplateno} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.carGroup}</TableCell>
-                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.carMake + " " + car.carModel}</TableCell>
-                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.carParkingLotno}</TableCell>      
-                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.carStatus}</TableCell>
+                <TableRow className="tablerow" key={car.licensePlate} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.group}</TableCell>
+                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.make + " " + car.model}</TableCell>
+                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.parkingSpace}</TableCell>      
+                  <TableCell style={{borderBottom:"none"}} align="left" className="tablecell">{car.status}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -7,6 +7,7 @@ import CheckBoxes from "../components/bookingoverview/checkboxes";
 import GridTable from "../components/bookingoverview/gridtable";
 import "reactjs-popup/dist/index.css";
 import SimpleModal from "../components/SimpleModal";
+import { CarComponent } from '../carComponent';
 
 
 function Home() {
@@ -65,9 +66,6 @@ function Home() {
               </form>
             </div>
             
-
-            
-            
               
           
             <button onClick={() => setVisible(!visible)} id="advfilters">
@@ -92,6 +90,7 @@ function Home() {
                       </form>
                       <CheckBoxes />
                   </div>
+                  <CarComponent />
                   <div className="column">
                     <h2>Pick-up & Return</h2>
                     <div className="row">

@@ -1,6 +1,8 @@
 import "./caroverviewgrid.css";
 import "../CarPrem.css";
 import ParkingLotSpot from "./parkingLotSpot.js";
+import { getAllCars } from '../../carComponent';
+import * as React from 'react';
 
 
 // Defining parking spots
@@ -21,22 +23,32 @@ for (let i = 1; i <= 42; i++) {
 
 
 
-export default function LotOverview(props) {
+export default function LotOverview() {
+
+  const [listOfCars, setListOfCars] = React.useState([]); 
+    
+
+  React.useEffect(async() => { 
+    const listOfCars = await getAllCars();
+    console.log(listOfCars);
+    setListOfCars(listOfCars); 
+  }, [])
 
   function check(){
-    for (let i = 0; i < props.listOfCars.length; i++) {
-      let currentCar = props.listOfCars[i];
+    for (let i = 0; i < listOfCars.length; i++) {
+      let currentCar = listOfCars[i];
       // Iterate over parking spaces
       for (let j = 1; j < parkingSpots.length; j++) {
         // check for match between car location and parking space
-        if (currentCar.carParkingLotno.localeCompare(parkingSpots[j].id) == 0) {
+        if (currentCar.parkingSpace.localeCompare(parkingSpots[j].id) == 0) {
           // update parking spot with information to match car
-          parkingSpots[j].status = currentCar.carStatus;
-          parkingSpots[j].licenseplate = currentCar.carLicenseplateno;
+          parkingSpots[j].status = currentCar.status;
+          parkingSpots[j].licenseplate = currentCar.licensePlate;
         }
       }
     }
     console.log(parkingSpots)
+    console.log(listOfCars)
     return parkingSpots
   }
 
