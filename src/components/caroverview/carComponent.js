@@ -62,20 +62,6 @@ export const CarComponent = () => {
   // State variables
   const [car, setCar] = useState(null);
 
-  async function addCar2() {
-    try {
-      // create a new Parse Object instance
-      const Car = new Parse.Object('Car');
-      // define the attributes you want for your Object
-      Car.set('licensePlate', '100200300');
-      Car.set('group', 'A');
-      // save it on Back4App Data Store
-      await Car.save();
-      alert('Car saved!');
-    } catch (error) {
-      console.log('Error saving new car: ', error);
-    }
-  }
 
   async function fetchCar() {
     // create your Parse Query using the Person Class you've created
@@ -91,6 +77,7 @@ export const CarComponent = () => {
     setCar(Car);
   }
 
+  
 
 
   return (

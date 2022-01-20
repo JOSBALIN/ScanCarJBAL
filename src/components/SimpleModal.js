@@ -5,7 +5,7 @@ import Modal from "@material-ui/core/Modal";
 import "./SimpleModal.css";
 import EditIcon from "@mui/icons-material/Edit";
 import { getSpecificBooking, getAllCars, createBookingWithPersonAndExistingCar } from "../api";
-import {createBooking} from "./bookingoverview/BookingsAPI"
+import {createBooking, deleteBooking} from "./bookingoverview/BookingsAPI"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,8 +23,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function SimpleModal(props) {
 
+export default function SimpleModal(props) {
+  const [textInput, setTextInput] = React.useState('');
+  const [name,setName]= React.useState('')
+  const [address,setAddress]= React.useState('')
+  const [group,setGroup]= React.useState('')
+
+  const handleClick = () => {
+    const prop = {fullName:name, carGroup:group}
+    createBooking(prop)
+  }
+
+  const handleGroupChange = (event) => {
+    setGroup(event.target.value);
+  }
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  }
 
   const classes = useStyles();
   const [open, setOpen] = React.useState();
@@ -39,17 +56,10 @@ export default function SimpleModal(props) {
     setOpen(false);
   };
 
-  function alertDelete() {
-    window.confirm(
-      "Are you sure you want to delete this entry?\nThis cannot be undone"
-    );
-  }
-
-
-  function alertNoCar(props) {
-    window.alert(
-      "Unfortunately there is no car available in car group " + {props}
-    );
+  function alertDelete(props) {
+    if(window.confirm("Are you sure you want to delete this entry?\nThis cannot be undone") == true){
+        deleteBooking(props)
+    };
   }
 
   function ModalButton() {
@@ -69,31 +79,6 @@ export default function SimpleModal(props) {
   }
 
 
-  const [listOfBookings, setListOfBookings] = React.useState([]); 
-
-  React.useEffect(async() => { 
-    const allBookings = await getSpecificBooking(props.o.id);
-    console.log(allBookings);
-    setListOfBookings(allBookings); 
-  }, [])
-
-  const [listOfCars, setListOfCars] = React.useState([]); 
-    
-  React.useEffect(async() => { 
-    const allCars = await getAllCars();
-    console.log(allCars);
-    setListOfCars(allCars); 
-  }, [])
-
-  function getCarInCarGroup(props){
-  for (let i = 0; i < props.listOfCars.length; i++) {
-    let currentCar = props.listOfCars[i];
-      if (currentCar.carGroup.localeCompare(props.o.carGroup) == 0) {
-        return currentCar
-      }
-    }
-  return null
-}
 
   return (
 
@@ -125,7 +110,7 @@ export default function SimpleModal(props) {
               <form className="row" id="bookinginformation">
                 <p>
                   <label>Name</label>
-                  <input type="text" name="Name" defaultValue={props.o.name}/>
+                  <input type="text" name="Name" defaultValue={props.o.name} onChange={handleNameChange}/>
                 </p>
                 <p>
                   <label>Phone Number</label>
@@ -193,7 +178,7 @@ export default function SimpleModal(props) {
                   <div className="column" id="carinformation">
                     <p>
                       <label>Group</label>
-                      <select name="location" id="location">
+                      <select name="location" id="location" onChange={handleGroupChange}>
                         <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
@@ -227,11 +212,11 @@ export default function SimpleModal(props) {
           <div id="buttonDiv">
             <button className = "modalButton" id="cancelButton" onClick={handleClose}>Cancel</button>
             {isNew ? (
-              <p onClick={() => { createBooking() }} id="deleteButton">
+              <p onClick={() => { handleClick() }} id="deleteButton">
               CLICK TO CREATE BOOKING
             </p>
             ) : (
-              <p onClick={alertDelete} id="deleteButton">
+              <p onClick={() => { alertDelete(props.o.id) }} id="deleteButton">
                 Delete booking
               </p>
             )}

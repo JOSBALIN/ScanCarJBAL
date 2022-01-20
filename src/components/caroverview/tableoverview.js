@@ -10,6 +10,7 @@ import "../CarPrem.css";
 
 
 export default function BasicTableOverview(props) {
+
   console.log(props.listOfCars);
   return (
     <div className="flexbox-container">

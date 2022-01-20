@@ -1,6 +1,25 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert } from "react";
 import Parse from 'parse/dist/parse.min.js';
+
+
+
+const ReadBookings = async function () {
+    const [readResults, setReadResults] = useState()
+    // Reading parse objects is done by using Parse.Query
+    const parseQuery = new Parse.Query('Booking');
+    try {
+      let bookings = await parseQuery.find();
+      // Be aware that empty or invalid queries return as an empty array
+      // Set results to state variable
+      setReadResults(bookings);
+      return true;
+    } catch (error) {
+      // Error can be caused by lack of Internet connection
+      window.alert('Error!', error.message);
+      return false;
+    };
+  };
+
 
   /* getAll* api calls are read operations, retrieving all objects of a given class.  
 */
@@ -65,12 +84,22 @@ export async function deleteBooking(bookingID) {
     };
   };
 
-  export async function createBooking() {
+  export async function createBooking(props) {
     // This value comes from a state variable
-    const newBookingNameValue = "Johan Larsson";
-    // Creates a new Todo parse object instance
+    const newBookingName = props.fullName;
+    const newBookingPickupDate = props.PickupDate
+    // Creates a new Booking parse object instance
     let Booking = new Parse.Object("Booking");
-    Booking.set("fullName", newBookingNameValue);
+    Booking.set("fullName", props.fullName);
+    Booking.set("status", props.status);
+    Booking.set("carGroup", props.carGroup);
+    Booking.set("phoneNumber", props.phoneNumber);
+    Booking.set("address", props.address);
+    Booking.set("customerLicenseID", props.customerLicenseID);
+    Booking.set("carLicensePlate", props.carLicensePlate);
+    Booking.set("dropOffLocation", props.dropOffLocation);
+    // add the next ones also
+
     Booking.set("done", false);
     // After setting the todo values, save it on the server
     try {
@@ -86,24 +115,7 @@ export async function deleteBooking(bookingID) {
     }
   };
 
-// export async function addbooking(props) {
-//   try {
-//     // create a new Parse Object instance
-//     const Car = new Parse.Object('Car');
-//     // define the attributes you want for your Object
-//     Car.set('licensePlate', props.licensePlate);
-//     Car.set('group', props.group);
-//     // Car.set('make', props.make);
-//     // Car.set('Status', props.status);
-//     // Car.set('model', props.model);
-//     // Car.set('color', props.color);
-//     // save it on Back4App Data Store
-//     await Car.save();
-//     alert('Car saved!');
-//   } catch (error) {
-//     console.log('Error saving new car: ', error);
-//   }
-// }
+
 
 export const BookingComponent = () => {
   // State variables
