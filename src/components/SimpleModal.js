@@ -5,6 +5,7 @@ import Modal from "@material-ui/core/Modal";
 import "./SimpleModal.css";
 import EditIcon from "@mui/icons-material/Edit";
 import { getSpecificBooking, getAllCars, createBookingWithPersonAndExistingCar } from "../api";
+import {createBooking} from "./bookingoverview/BookingsAPI"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -226,11 +227,7 @@ export default function SimpleModal(props) {
           <div id="buttonDiv">
             <button className = "modalButton" id="cancelButton" onClick={handleClose}>Cancel</button>
             {isNew ? (
-              <p onClick={
-                
-                createBookingWithPersonAndExistingCar()
-
-              } id="deleteButton">
+              <p onClick={() => { createBooking() }} id="deleteButton">
               CLICK TO CREATE BOOKING
             </p>
             ) : (

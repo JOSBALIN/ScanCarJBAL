@@ -2,12 +2,15 @@ import { DataGrid} from "@mui/x-data-grid";
 import SimpleModal from "../SimpleModal";
 import { makeStyles } from "@mui/styles";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {deleteBooking} from "./BookingsAPI";
 
 import "../SimpleModal.css"
 import "./gridtable.css"
 
-function alertDelete() {
-  window.confirm("Are you sure you want to delete this entry?\nThis cannot be undone");
+function alertDelete(props) {
+  if(window.confirm("Are you sure you want to delete this entry?\nThis cannot be undone") == true){
+      deleteBooking(props)
+  };
 }
 
 
@@ -27,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-
+/* Defines columns to be used in the grid, following MUI-Datagrid API */
 const columns = [
   { field: "id",  headerName: "Booking ID", minWidth: 110, align: "center", headerAlign:"center" },
   { field: "name",  headerName: "Full Name", minWidth: 140, flex: 0.6,  },
@@ -44,7 +47,7 @@ const columns = [
   { field: "returnTime",  hide:true },
 
 
-  // Button in grid adapted from https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
+  // Edit column represented by a button - adapted from https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
   {
     field: "edit",
     headerName: "",
@@ -73,6 +76,7 @@ const columns = [
     }
   },
 
+  // Delete column represented by a button - adapted from above link
   {
     field: "delete",
     headerName: "",
@@ -81,8 +85,24 @@ const columns = [
     width: 20,
     renderCell: (params) => {
 
+      // onClick function to fetch row information (bookingID)
+      const onClick = () => {
+        
+        const api = params.api;
+        const thisRow = {};
 
-      return <button className="deleteButton" onClick={alertDelete}  ><DeleteIcon/></button>
+        api
+          .getAllColumns()
+          .filter((c) => c.field !== "__check__" && !!c)
+          .forEach(
+            (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+          );
+
+          return thisRow.id
+      };
+
+      // HTML representation, deletebutton that executes alertDelete with onClick() as parameter
+      return <button className="deleteButton" onClick={() => { alertDelete(onClick())}} ><DeleteIcon/></button>
     }
   },
 
@@ -93,7 +113,7 @@ export default function GridTable(props) {
     
   const classes = useStyles({m:400});
   
-  // Vars and functions for formatting date, taken from W3 schools' articles on getMonths & getMinutes
+  // Date formatting helpers, taken from W3Schools
   const months = ["01","02","03","04","05","06","07","08","09","10","11","12"];
   function addZero(i) {
     if (i < 10) {i = "0" + i}
@@ -116,25 +136,24 @@ export default function GridTable(props) {
         rows={
           props.listOfBookings.map((booking) => (
             {
-              id: booking.bookingid, 
-              name: booking.fullname,
-              phoneNum: booking.phonenumber,
-              carGroup: booking.cargroup,
-              pickup: booking.pickupdate.getDate()+"/"+months[booking.pickupdate.getMonth()]+"/"+booking.pickupdate.getFullYear()+"  "+booking.pickupdate.getHours() +":"+addZero(booking.pickupdate.getMinutes()),
-              return: booking.dropoffdate.getDate()+"/"+months[booking.dropoffdate.getMonth()]+"/"+booking.dropoffdate.getFullYear()+"  "+booking.dropoffdate.getHours() +":"+addZero(booking.dropoffdate.getMinutes()),
+              id: booking.bookingID, 
+              name: booking.fullName,
+              phoneNum: booking.phoneNumber,
+              carGroup: booking.carGroup,
               carStatus: booking.status,
-              licenseID: booking.driverlicenseno,
+              licenseID: booking.customerLicenseID,
               address: booking.address,
-              pickupDate: booking.pickupdate.getFullYear()+"-"+months[booking.pickupdate.getMonth()]+"-"+addZero(booking.pickupdate.getDate()),
-              pickupTime: booking.pickupdate.getHours() +":"+addZero(booking.pickupdate.getMinutes()),
-              returnDate: booking.dropoffdate.getFullYear()+"-"+months[booking.dropoffdate.getMonth()]+"-"+addZero(booking.dropoffdate.getDate()),
-              returnTime: booking.dropoffdate.getHours() +":"+addZero(booking.dropoffdate.getMinutes()),
+              // Date formatting
+              pickup: addZero(booking.pickupDate.getDate())+"/"+months[booking.pickupDate.getMonth()]+"/"+booking.pickupDate.getFullYear()+"  "+booking.pickupDate.getHours() +":"+addZero(booking.pickupDate.getMinutes()),
+              return: addZero(booking.dropOffDate.getDate())+"/"+months[booking.dropOffDate.getMonth()]+"/"+booking.dropOffDate.getFullYear()+"  "+booking.dropOffDate.getHours() +":"+addZero(booking.dropOffDate.getMinutes()),
+              // Repeats necessary to pass information to modal
+              pickupDate: booking.pickupDate.getFullYear()+"-"+months[booking.pickupDate.getMonth()]+"-"+addZero(booking.pickupDate.getDate()),
+              pickupTime: booking.pickupDate.getHours() +":"+addZero(booking.pickupDate.getMinutes()),
+              returnDate: booking.dropOffDate.getFullYear()+"-"+months[booking.dropOffDate.getMonth()]+"-"+addZero(booking.dropOffDate.getDate()),
+              returnTime: booking.dropOffDate.getHours() +":"+addZero(booking.dropOffDate.getMinutes()),
             }
           ))
-        //   [
-        //   { id: 1, carStatus: 'React' },
-        //   { id: 2, carStatus: 'MUI' },
-        // ]
+
       
       }
         headerHeight={50}

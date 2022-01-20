@@ -1,7 +1,7 @@
 import "./caroverviewgrid.css";
 import "../CarPrem.css";
 import ParkingLotSpot from "./parkingLotSpot.js";
-import { getAllCars } from '../../carComponent';
+import { getAllCars } from './carComponent';
 import * as React from 'react';
 
 

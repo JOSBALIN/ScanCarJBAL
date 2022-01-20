@@ -3,7 +3,7 @@ import "../components/CarPrem.css"
 import BasicTableOverview from '../components/caroverview/tableoverview';
 import LotOverview from "../components/caroverview/caroverview";
 import CreateCarModal from "../components/caroverview/CreateCarModal";
-import { getAllCars } from '../carComponent';
+import { getAllCars } from '../components/caroverview/carComponent';
 
 function Home() {
     const [listOfCars, setListOfCars] = React.useState([]); 

@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import "./CreateCarModal.css";
 import EditIcon from "@mui/icons-material/Edit";
-import { addCar } from "../../carComponent";
+import { addCar } from "./carComponent";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CreateCarModal(props) {
+export default function CreateCarModal() {
+
 
 
   const pass = {group: "A", licensePlate: "102030"}

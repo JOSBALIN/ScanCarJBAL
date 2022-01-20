@@ -2,12 +2,12 @@ import * as React from "react";
 //import logo from "../logo.svg";
 import "./Home.css";
 import "../App.css";
-import { getAllBookingInfo } from "../api";
 import CheckBoxes from "../components/bookingoverview/checkboxes";
 import GridTable from "../components/bookingoverview/gridtable";
+import {getAllBookings} from "../components/bookingoverview/BookingsAPI";
+import {deleteBooking} from "../components/bookingoverview/BookingsAPI";
 import "reactjs-popup/dist/index.css";
 import SimpleModal from "../components/SimpleModal";
-import { CarComponent } from '../carComponent';
 
 
 function Home() {
@@ -16,11 +16,11 @@ function Home() {
   const [listOfBookings, setListOfBookings] = React.useState([]); 
     
 
-    React.useEffect(async() => { 
-      const allBookings = await getAllBookingInfo();
-      console.log(allBookings);
-      setListOfBookings(allBookings); 
-    }, [])
+  React.useEffect(async() => { 
+    const allBookings = await getAllBookings();
+    console.log(allBookings);
+    setListOfBookings(allBookings); 
+  }, [])
 
   const emptyRecord = {
     0: {id: 0}
@@ -66,7 +66,6 @@ function Home() {
               </form>
             </div>
             
-              
           
             <button onClick={() => setVisible(!visible)} id="advfilters">
               {visible ? "v   Advanced Filters" : ">   Advanced Filters"}
@@ -90,7 +89,6 @@ function Home() {
                       </form>
                       <CheckBoxes />
                   </div>
-                  <CarComponent />
                   <div className="column">
                     <h2>Pick-up & Return</h2>
                     <div className="row">
