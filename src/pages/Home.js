@@ -5,21 +5,24 @@ import "../App.css";
 import CheckBoxes from "../components/bookingoverview/checkboxes";
 import GridTable from "../components/bookingoverview/gridtable";
 import {getAllBookings} from "../components/bookingoverview/BookingsAPI";
-import {deleteBooking} from "../components/bookingoverview/BookingsAPI";
 import "reactjs-popup/dist/index.css";
 import SimpleModal from "../components/SimpleModal";
+import { listItemAvatarClasses } from "@mui/material";
 
 
 function Home() {
   const [visible, setVisible] = React.useState(false);
 
-  const [listOfBookings, setListOfBookings] = React.useState([]); 
+  const [listOfBookings, setListOfBookings] = React.useState([]);
+  const [lastBookingID, setLastBookingID] = React.useState([]);
     
 
   React.useEffect(async() => { 
     const allBookings = await getAllBookings();
     console.log(allBookings);
-    setListOfBookings(allBookings); 
+    setListOfBookings(allBookings);
+    setLastBookingID(allBookings[allBookings.length - 1].bookingID)
+    console.log(lastBookingID)
   }, [])
 
   const emptyRecord = {
@@ -39,7 +42,7 @@ function Home() {
                 <h3>Filter Bookings</h3>
               </div>
               <div>
-                <SimpleModal o={emptyRecord} isNew={true} isOpen={false}/>
+                <SimpleModal o={emptyRecord} isNew={true} isOpen={false} lastBookingID={lastBookingID}/>
               </div>
             </div>
             <div className="row">

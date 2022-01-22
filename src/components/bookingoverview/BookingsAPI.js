@@ -3,23 +3,6 @@ import Parse from 'parse/dist/parse.min.js';
 
 
 
-const ReadBookings = async function () {
-    const [readResults, setReadResults] = useState()
-    // Reading parse objects is done by using Parse.Query
-    const parseQuery = new Parse.Query('Booking');
-    try {
-      let bookings = await parseQuery.find();
-      // Be aware that empty or invalid queries return as an empty array
-      // Set results to state variable
-      setReadResults(bookings);
-      return true;
-    } catch (error) {
-      // Error can be caused by lack of Internet connection
-      window.alert('Error!', error.message);
-      return false;
-    };
-  };
-
 
   /* getAll* api calls are read operations, retrieving all objects of a given class.  
 */
@@ -85,20 +68,22 @@ export async function deleteBooking(bookingID) {
   };
 
   export async function createBooking(props) {
-    // This value comes from a state variable
-    const newBookingName = props.fullName;
-    const newBookingPickupDate = props.PickupDate
     // Creates a new Booking parse object instance
     let Booking = new Parse.Object("Booking");
+
+    // Setters
     Booking.set("fullName", props.fullName);
-    Booking.set("status", props.status);
+    Booking.set("bookingID", props.bookingID);
+    // Booking.set("status", props.status);
     Booking.set("carGroup", props.carGroup);
     Booking.set("phoneNumber", props.phoneNumber);
     Booking.set("address", props.address);
     Booking.set("customerLicenseID", props.customerLicenseID);
     Booking.set("carLicensePlate", props.carLicensePlate);
     Booking.set("dropOffLocation", props.dropOffLocation);
-    // add the next ones also
+    Booking.set("dropOffDate", props.dropOffDate);
+    Booking.set("pickupDate", props.pickupDate);
+    Booking.set("pickupLocation", props.pickupLocation);
 
     Booking.set("done", false);
     // After setting the todo values, save it on the server

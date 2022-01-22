@@ -22,31 +22,92 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Code adapted from https://www.codegrepper.com/code-examples/javascript/generate+3+letter+random+letters+js
+// Used to generate random license plates
+function getRandomString() {
+  var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var randomNums = '0123456789';
+  var result = '';
+  for ( var i = 0; i < 3; i++ ) {
+    result += randomNums.charAt(Math.floor(Math.random() * randomChars.length));
+  }
+  for ( var i = 0; i < 3; i++ ) {
+    result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+  }
+  return result;
+}
 
 
 export default function SimpleModal(props) {
-  const [textInput, setTextInput] = React.useState('');
+
+  
+  const classes = useStyles();
+  const [open, setOpen] = React.useState();
+  const isNew = props.isNew;
+  const currentBookingID = props.lastBookingID+1;
+
+
   const [name,setName]= React.useState('')
+  const [phoneNumber,setPhoneNumber]= React.useState('')
   const [address,setAddress]= React.useState('')
-  const [group,setGroup]= React.useState('')
+  const [group,setGroup]= React.useState('A')
+  const [dropOffTime,setDropOffTime]= React.useState('')  
+  const [dropOffDate,setDropOffDate]= React.useState('')
+  const [dropOffLocation,setDropOffLocation]= React.useState('Nordhavn')
+  const [pickupTime,setPickupTime]= React.useState('')  
+  const [pickupDate,setPickupDate]= React.useState('')
+  const [pickupLocation,setPickupLocation]= React.useState('Nordhavn')
+  const [customerLicenseID,setCustomerLicenseID]= React.useState('')    
 
   const handleClick = () => {
-    const prop = {fullName:name, carGroup:group}
+    const prop = {bookingID: currentBookingID, fullName:name, address:address, phoneNumber:phoneNumber, licensePlate: getRandomString(), customerLicenseID:customerLicenseID, carGroup:group, pickupDate: new Date(pickupDate + " " + pickupTime), dropOffDate: new Date(dropOffDate + " " + dropOffTime), pickupLocation: pickupLocation, dropOffLocation: dropOffLocation}
     createBooking(prop)
+    handleClose()
   }
+
 
   const handleGroupChange = (event) => {
     setGroup(event.target.value);
+  }
+
+  const handlePhoneNumberChange = (event) => {
+    setPhoneNumber(event.target.value);
+  }
+
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  }
+
+  const handlecustomerLicenseIDChange = (event) => {
+    setCustomerLicenseID(event.target.value);
   }
 
   const handleNameChange = (event) => {
     setName(event.target.value);
   }
 
-  const classes = useStyles();
-  const [open, setOpen] = React.useState();
+  const handleDropOffTimeChange = (event) => {
+    setDropOffTime(event.target.value);
+  }
 
-  const isNew = props.isNew;
+  const handleDropOffDateChange = (event) => {
+    setDropOffDate(event.target.value);
+  }
+
+  const handlePickupTimeChange = (event) => {
+    setPickupTime(event.target.value);
+  }
+
+  const handlePickupDateChange = (event) => {
+    setPickupDate(event.target.value);
+  }
+  const handleDropOffLocationChange = (event) => {
+    setDropOffLocation(event.target.value);
+  }
+  const handlePickupLocationChange = (event) => {
+    setPickupLocation(event.target.value);
+  }
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -103,7 +164,7 @@ export default function SimpleModal(props) {
                 <h4>Customer information</h4>
               </div>
               <div className="column" id="cartype">
-              { isNew ? "" : <h5>BookingID: {props.o.id}</h5> }
+              { isNew ? <h5>BookingID: {currentBookingID}</h5> : <h5>BookingID: {props.o.id}</h5> }
               </div>
             </div>
             <div>
@@ -114,15 +175,15 @@ export default function SimpleModal(props) {
                 </p>
                 <p>
                   <label>Phone Number</label>
-                  <input type="text" name="Phone Number" defaultValue={props.o.phoneNum} />
+                  <input type="text" name="Phone Number" defaultValue={isNew ? "+45 " : props.o.phoneNum} onChange={handlePhoneNumberChange} />
                 </p>
                 <p>
                   <label>Address</label>
-                  <input type="text" name="Address" defaultValue={props.o.address}/>
+                  <input type="text" name="Address" defaultValue={props.o.address} onChange={handleAddressChange}/>
                 </p>
                 <p>
                   <label>License ID</label>
-                  <input type="text" name="License ID" defaultValue={props.o.licenseID}/>
+                  <input type="text" name="License ID" defaultValue={props.o.licenseID} onChange={handlecustomerLicenseIDChange}/>
                 </p>
               </form>
             </div>
@@ -141,34 +202,34 @@ export default function SimpleModal(props) {
                   <div className="column">
                     <p>
                       <label>Date</label>
-                      <input type="date" name="date" defaultValue={props.o.pickupDate} />
+                      <input type="date" name="date" defaultValue={props.o.pickupDate}  onChange={handlePickupDateChange}/>
                     </p> 
                     <p>
-                      <input type="date" name="date" defaultValue={props.o.returnDate} />
+                      <input type="date" name="date" defaultValue={props.o.returnDate}  onChange={handleDropOffDateChange} />
                     </p> 
                   </div>
                   <div className="column">
                     <p>
                       <label>Time</label>
                       <input type="time" step="3600000" className="time" name="appt" defaultValue={props.o.pickupTime}
-                        min="07:00" max="21:00" required/>
+                        min="07:00" max="21:00" required onChange={handlePickupTimeChange}/>
                     </p>
                     <p>
                       <input type="time" step="3600000" className="time" name="appt" defaultValue={props.o.returnTime}
-                        min="07:00" max="21:00" required/>
+                        min="07:00" max="21:00" required onChange={handleDropOffTimeChange}/>
                     </p>
                   </div>
                   <div className="column">
                     <p>
                       <label>Location</label>
-                      <select name="location" id="location">
+                      <select name="location" id="location" onChange={handlePickupLocationChange}>
                         <option value="Nordhavn">Nordhavn</option>
                         <option value="Sydhavn">Sydhavn</option>
                         <option value="Amager">Amager</option>
                       </select>
                     </p>
                     <p>
-                      <select name="location" id="location">
+                      <select name="location" id="location" onChange={handleDropOffLocationChange}>
                         <option value="Nordhavn">Nordhavn</option>
                         <option value="Sydhavn">Sydhavn</option>
                         <option value="Amager">Amager</option>
