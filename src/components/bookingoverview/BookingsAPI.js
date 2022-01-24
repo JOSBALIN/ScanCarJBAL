@@ -67,6 +67,25 @@ export async function deleteBooking(bookingID) {
     };
   };
 
+  export async function updateBooking (props) {
+    // Create a new todo parse object instance and set todo id
+    let Booking = new Parse.Object('Booking');
+    Booking.set('bookingID', props.bookingID);
+    // Set new done value and save Parse Object changes
+    Booking.set('fullName', props.fullName);
+    try {
+      await Booking.save();
+      // Success
+      window.alert('Success!', 'Todo updated!');
+      // Refresh todos list
+      return true;
+    } catch (error) {
+      // Error can be caused by lack of Internet connection
+      window.alert('Error!', error.message);
+      return false;
+    };
+  };
+
   export async function createBooking(props) {
     // Creates a new Booking parse object instance
     let Booking = new Parse.Object("Booking");

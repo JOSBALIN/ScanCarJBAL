@@ -7,6 +7,7 @@ import { getAllCars } from '../components/caroverview/carComponent';
 
 function Home() {
     const [listOfCars, setListOfCars] = React.useState([]); 
+    const [loading, setLoading] = React.useState("aa"); 
     
 
     React.useEffect(async() => { 
@@ -14,6 +15,23 @@ function Home() {
       console.log(allCars);
       setListOfCars(allCars); 
     }, [])
+
+    setTimeout(() => {
+      setLoading("bb")
+      console.log("bb")
+      }, 700)
+
+    function parkingSpaces() {
+      if (loading.localeCompare("aa")) {
+        return (
+          <LotOverview listOfCars={listOfCars}/>
+        );
+      } else {
+        return (
+          <div id='parkingmodule'></div>
+        );
+      }
+    }
 
 
     return (
@@ -33,7 +51,7 @@ function Home() {
                 </div>
               </div>
               <div className="columns">
-                <LotOverview listOfCars={listOfCars}/>
+                {parkingSpaces()}
               </div>
             </div>
           </div>

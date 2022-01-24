@@ -28,6 +28,7 @@ import Parse from 'parse/dist/parse.min.js';
     model: car.get("model"),
     color: car.get("color"),
     doorCount: car.get("doorCount"),
+    fuelType: car.get("fuelType")
 
 
 }})

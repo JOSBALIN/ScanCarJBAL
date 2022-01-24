@@ -76,11 +76,11 @@ input {
 }
 
 #parkingmodule {
-  background-color: red;
-  margin-left: 350px;
-  height: 500%;
+  margin-left: 520px;
   width: auto;
 }
+
+
 
 .headingsready {
   display: flex;

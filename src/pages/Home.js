@@ -16,17 +16,15 @@ function Home() {
   const [listOfBookings, setListOfBookings] = React.useState([]);
   const [lastBookingID, setLastBookingID] = React.useState([]);
     
-
-  React.useEffect(async() => { 
-    const allBookings = await getAllBookings();
-    console.log(allBookings);
-    setListOfBookings(allBookings);
-    setLastBookingID(allBookings[allBookings.length - 1].bookingID)
-    console.log(lastBookingID)
-  }, [])
+    React.useEffect(async() => { 
+      const allBookings = await getAllBookings();
+      console.log(allBookings);
+      setListOfBookings(allBookings);
+      setLastBookingID(allBookings[allBookings.length - 1].bookingID)
+      console.log(lastBookingID)
+    }, [])
 
   const emptyRecord = {
-    0: {id: 0}
   };
 
 

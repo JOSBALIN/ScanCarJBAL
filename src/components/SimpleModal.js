@@ -4,8 +4,7 @@ import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import "./SimpleModal.css";
 import EditIcon from "@mui/icons-material/Edit";
-import { getSpecificBooking, getAllCars, createBookingWithPersonAndExistingCar } from "../api";
-import {createBooking, deleteBooking} from "./bookingoverview/BookingsAPI"
+import {createBooking, deleteBooking, updateBooking} from "./bookingoverview/BookingsAPI"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,9 +58,15 @@ export default function SimpleModal(props) {
   const [pickupLocation,setPickupLocation]= React.useState('Nordhavn')
   const [customerLicenseID,setCustomerLicenseID]= React.useState('')    
 
-  const handleClick = () => {
+  const handleClickNew = () => {
     const prop = {bookingID: currentBookingID, fullName:name, address:address, phoneNumber:phoneNumber, licensePlate: getRandomString(), customerLicenseID:customerLicenseID, carGroup:group, pickupDate: new Date(pickupDate + " " + pickupTime), dropOffDate: new Date(dropOffDate + " " + dropOffTime), pickupLocation: pickupLocation, dropOffLocation: dropOffLocation}
     createBooking(prop)
+    handleClose()
+  }
+
+  const handleClickUpdate = () => {
+    const prop = {bookingID: currentBookingID, fullName:name, address:address, phoneNumber:phoneNumber, licensePlate: getRandomString(), customerLicenseID:customerLicenseID, carGroup:group, pickupDate: new Date(pickupDate + " " + pickupTime), dropOffDate: new Date(dropOffDate + " " + dropOffTime), pickupLocation: pickupLocation, dropOffLocation: dropOffLocation}
+    updateBooking(prop)
     handleClose()
   }
 
@@ -271,9 +276,9 @@ export default function SimpleModal(props) {
           </div>
 
           <div id="buttonDiv">
-            <button className = "modalButton" id="cancelButton" onClick={handleClose}>Cancel</button>
+            <button className = "modalButton" id="cancelButton" onClick={() => { handleClickUpdate() }}>Cancel</button>
             {isNew ? (
-              <p onClick={() => { handleClick() }} id="deleteButton">
+              <p onClick={() => { handleClickUpdate() }} id="deleteButton">
               CLICK TO CREATE BOOKING
             </p>
             ) : (
@@ -281,8 +286,7 @@ export default function SimpleModal(props) {
                 Delete booking
               </p>
             )}
-            <button className = "modalButton" id="confirmButton" 
-            >
+            <button className = "modalButton" id="confirmButton" onClick={() => { handleClickNew() }}>
             {isNew ? "Confirm" : "Edit"}</button>
           </div>
         </div>

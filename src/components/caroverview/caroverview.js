@@ -6,7 +6,7 @@ import * as React from 'react';
 
 
 // Defining parking spots
-let parkingSpots = new Array(42);
+const parkingSpots = new Array(42);
 
 for (let i = 1; i <= 42; i++) {
   let lotName = "";
@@ -23,16 +23,14 @@ for (let i = 1; i <= 42; i++) {
 
 
 
-export default function LotOverview() {
 
-  const [listOfCars, setListOfCars] = React.useState([]); 
-    
+export default function LotOverview(props) {
 
-  React.useEffect(async() => { 
-    const listOfCars = await getAllCars();
-    console.log(listOfCars);
-    setListOfCars(listOfCars); 
-  }, [])
+  const listOfCars = props.listOfCars
+  const [loading,setLoading]= React.useState()
+
+  
+
 
   function check(){
     for (let i = 0; i < listOfCars.length; i++) {
@@ -54,6 +52,7 @@ export default function LotOverview() {
 
 
 
+
 const aSpots = []
 function drawA(props){
   for(let i = 1; i <= 14; i++){
@@ -65,6 +64,8 @@ function drawA(props){
   }
   return aSpots
 }
+
+
 
   const bSpots = []
   function drawB(props){
@@ -79,24 +80,32 @@ function drawA(props){
   }
 
   const cSpots = []
-  function drawC(props){
-  for(let i = 1; i <= 14; i++){
-    let currentSpot = parkingSpots[i+28]
-    let className = "small-grid-box " + currentSpot.status
-    cSpots.push(
-      <ParkingLotSpot id={currentSpot.id} className={className}/>
-    )
-  }
-  return cSpots
+function drawC(props){
+for(let i = 1; i <= 14; i++){
+  let currentSpot = props[i+28]
+  let className = "small-grid-box " + currentSpot.status
+  cSpots.push(
+    <ParkingLotSpot id={currentSpot.id} className={className}/>
+  )
+}
+return cSpots
 }
 
-  
+
+
+//   setTimeout(() => {
+//     setLoading("aa")
+//     console.log("asdasdsa")
+//     setLoading("bb")
+// }, 5000);
 
   return (
     <div className="grid-container">
       <div className="grid-item grid-item-1">
       <div className="small-grid-box-container-horizontal">
-        {drawC(check())}
+        {
+        drawC(check())
+        }
       </div>
       </div>
       <div className="grid-item grid-item-2">
@@ -111,4 +120,5 @@ function drawA(props){
       </div>
     </div>
   );
+
 }
