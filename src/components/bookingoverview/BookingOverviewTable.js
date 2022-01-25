@@ -1,3 +1,4 @@
+import React from "react";
 import { DataGrid} from "@mui/x-data-grid";
 import SimpleModal from "../SimpleModal";
 import { makeStyles } from "@mui/styles";
@@ -5,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {deleteBooking} from "./BookingsAPI";
 
 import "../SimpleModal.css"
-import "./gridtable.css"
+import "./BookingOverviewTable.css"
 
 
 function alertDelete(props) {
@@ -116,6 +117,8 @@ const columns = [
 export default function GridTable(props) { 
     
   const classes = useStyles({m:400});
+
+
   
   // Date formatting helpers, taken from W3Schools
   const months = ["01","02","03","04","05","06","07","08","09","10","11","12"];

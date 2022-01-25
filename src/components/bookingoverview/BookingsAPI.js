@@ -73,8 +73,19 @@ export async function deleteBooking(objectId) {
     // Create a new todo parse object instance and set todo id
     let Booking = new Parse.Object('Booking');
     Booking.set('objectId', props.objectID);
-    // Set new done value and save Parse Object changes
-    Booking.set('fullName', props.fullName);
+    // Setters
+    Booking.set("fullName", props.fullName);
+    Booking.set("bookingID", props.bookingID);
+    Booking.set("status", props.status);
+    Booking.set("carGroup", props.carGroup);
+    Booking.set("phoneNumber", props.phoneNumber);
+    Booking.set("address", props.address);
+    Booking.set("customerLicenseID", props.customerLicenseID);
+    Booking.set("carLicensePlate", props.carLicensePlate);
+    Booking.set("dropOffLocation", props.dropOffLocation);
+    Booking.set("dropOffDate", props.dropOffDate);
+    Booking.set("pickupDate", props.pickupDate);
+    Booking.set("pickupLocation", props.pickupLocation);
     try {
       await Booking.save();
       // Success

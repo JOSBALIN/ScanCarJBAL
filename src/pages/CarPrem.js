@@ -1,9 +1,10 @@
 import * as React from 'react';
 import "../components/CarPrem.css"
 import BasicTableOverview from '../components/caroverview/tableoverview';
-import LotOverview from "../components/caroverview/caroverview";
+import CarPremOverviewTable from '../components/caroverview/CarPremOverviewTable';
+import LotOverview from "../components/caroverview/CarOverview";
 import CreateCarModal from "../components/caroverview/CreateCarModal";
-import { getAllCars } from '../components/caroverview/carComponent';
+import { getAllCars } from '../components/caroverview/CarsAPI';
 
 function Home() {
     const [listOfCars, setListOfCars] = React.useState([]); 
@@ -47,7 +48,7 @@ function Home() {
                   <div className="moduletitle">
                   <h2>Overview</h2> <CreateCarModal/>
                   </div>
-                  <BasicTableOverview listOfCars={listOfCars} />
+                  <CarPremOverviewTable listOfCars={listOfCars} />
                 </div>
               </div>
               <div className="columns">

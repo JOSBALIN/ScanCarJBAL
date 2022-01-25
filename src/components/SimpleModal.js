@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    width: 800,
+    width: 1000,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     borderTopLeftRadius: 20,
@@ -46,33 +46,32 @@ export default function SimpleModal(props) {
   const currentBookingID = props.lastBookingID+1;
 
 
-  const [name,setName]= React.useState('')
-  const [phoneNumber,setPhoneNumber]= React.useState('')
-  const [address,setAddress]= React.useState('')
-  const [group,setGroup]= React.useState('A')
-  const [dropOffTime,setDropOffTime]= React.useState('')  
-  const [dropOffDate,setDropOffDate]= React.useState('')
-  const [dropOffLocation,setDropOffLocation]= React.useState('Nordhavn')
-  const [pickupTime,setPickupTime]= React.useState('')  
-  const [pickupDate,setPickupDate]= React.useState('')
-  const [pickupLocation,setPickupLocation]= React.useState('Nordhavn')
-  const [customerLicenseID,setCustomerLicenseID]= React.useState('')
-  const name2 = React.createRef(); 
-  const phoneNumber2 = React.createRef();   
+  const name = React.createRef(); 
+  const phoneNumber = React.createRef();   
+  const address = React.createRef();
+  const group = React.createRef();
+  const dropOffTime = React.createRef()
+  const dropOffDate = React.createRef();
+  const dropOffLocation = React.createRef();
+  const pickupTime = React.createRef();
+  const pickupDate = React.createRef();
+  const pickupLocation = React.createRef();
+  const customerLicenseID = React.createRef();
+  const status = React.createRef();
 
   const handleClickNew = () => {
     const prop = {
       bookingID: currentBookingID,
-      fullName: name2.current.value,
-      address: address,
-      phoneNumber: phoneNumber2.current.value,
+      fullName: name.current.value,
+      address: address.current.value,
+      phoneNumber: phoneNumber.current.value,
       licensePlate: getRandomString(),
-      customerLicenseID: customerLicenseID,
-      carGroup: group,
-      pickupDate: new Date(pickupDate + " " + pickupTime),
-      dropOffDate: new Date(dropOffDate + " " + dropOffTime),
-      pickupLocation: pickupLocation,
-      dropOffLocation: dropOffLocation,
+      customerLicenseID: customerLicenseID.current.value,
+      carGroup: group.current.value,
+      pickupDate: new Date(pickupDate.current.value + " " + pickupTime.current.value),
+      dropOffDate: new Date(dropOffDate.current.value + " " + dropOffTime.current.value),
+      pickupLocation: pickupLocation.current.value,
+      dropOffLocation: dropOffLocation.current.value,
     };
     // 
     createBooking(prop)
@@ -81,55 +80,24 @@ export default function SimpleModal(props) {
   };
 
   const handleClickUpdate = () => {
-    console.log(props.o.bookingID)
-    const prop = {objectID: props.o.objectID, fullName:name2.current.value, address:address, phoneNumber:phoneNumber, carLicensePlate: getRandomString(), customerLicenseID:customerLicenseID, carGroup:group, pickupDate: new Date(pickupDate + " " + pickupTime), dropOffDate: new Date(dropOffDate + " " + dropOffTime), pickupLocation: pickupLocation, dropOffLocation: dropOffLocation}
-    updateBooking(prop)
-    handleClose()
-  }
-
-
-  const handleGroupChange = (event) => {
-    setGroup(event.target.value);
-  }
-
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-  }
-
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
-  }
-
-  const handlecustomerLicenseIDChange = (event) => {
-    setCustomerLicenseID(event.target.value);
-  }
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-    console.log(name2.current.value)
-  }
-
-  const handleDropOffTimeChange = (event) => {
-    setDropOffTime(event.target.value);
-  }
-
-  const handleDropOffDateChange = (event) => {
-    setDropOffDate(event.target.value);
-  }
-
-  const handlePickupTimeChange = (event) => {
-    setPickupTime(event.target.value);
-  }
-
-  const handlePickupDateChange = (event) => {
-    setPickupDate(event.target.value);
-  }
-  const handleDropOffLocationChange = (event) => {
-    setDropOffLocation(event.target.value);
-  }
-  const handlePickupLocationChange = (event) => {
-    setPickupLocation(event.target.value);
-  }
+    console.log(props.o.bookingID);
+    const prop = {
+      objectID: props.o.objectID,
+      fullName: name.current.value,
+      address: address.current.value,
+      phoneNumber: phoneNumber.current.value,
+      licensePlate: getRandomString(),
+      customerLicenseID: customerLicenseID.current.value,
+      carGroup: group.current.value,
+      pickupDate: new Date(pickupDate.current.value + " " + pickupTime.current.value),
+      dropOffDate: new Date(dropOffDate.current.value + " " + dropOffTime.current.value),
+      pickupLocation: pickupLocation.current.value,
+      dropOffLocation: dropOffLocation.current.value,
+      status: status.current.value
+    };
+    updateBooking(prop);
+    handleClose();
+  };
 
 
   var today = new Date();
@@ -204,9 +172,8 @@ export default function SimpleModal(props) {
                   <input
                     type="text"
                     name="Name"
-                    ref={name2}
+                    ref={name}
                     defaultValue={props.o.name}
-                    onChange={handleNameChange}
                   />
                 </p>
                 <p>
@@ -214,9 +181,8 @@ export default function SimpleModal(props) {
                   <input
                     type="text"
                     name="Phone Number"
-                    ref={phoneNumber2}
+                    ref={phoneNumber}
                     defaultValue={isNew ? "+45 " : props.o.phoneNum}
-                    onChange={handlePhoneNumberChange}
                   />
                 </p>
                 <p>
@@ -224,8 +190,8 @@ export default function SimpleModal(props) {
                   <input
                     type="text"
                     name="Address"
+                    ref={address}
                     defaultValue={props.o.address}
-                    onChange={handleAddressChange}
                   />
                 </p>
                 <p>
@@ -233,8 +199,8 @@ export default function SimpleModal(props) {
                   <input
                     type="text"
                     name="License ID"
+                    ref={customerLicenseID}
                     defaultValue={props.o.licenseID}
-                    onChange={handlecustomerLicenseIDChange}
                   />
                 </p>
               </form>
@@ -257,16 +223,16 @@ export default function SimpleModal(props) {
                     <input
                       type="date"
                       name="date"
+                      ref={pickupDate}
                       defaultValue={isNew ? date : props.o.pickupDate}
-                      onChange={handlePickupDateChange}
                     />
                   </p>
                   <p>
                     <input
                       type="date"
                       name="date"
+                      ref={dropOffDate}
                       defaultValue={props.o.returnDate}
-                      onChange={handleDropOffDateChange}
                     />
                   </p>
                 </div>
@@ -278,11 +244,11 @@ export default function SimpleModal(props) {
                       step="3600000"
                       className="time"
                       name="appt"
+                      ref={pickupTime}
                       defaultValue={props.o.pickupTime}
                       min="07:00"
                       max="21:00"
                       required
-                      onChange={handlePickupTimeChange}
                     />
                   </p>
                   <p>
@@ -295,7 +261,7 @@ export default function SimpleModal(props) {
                       min="07:00"
                       max="21:00"
                       required
-                      onChange={handleDropOffTimeChange}
+                      ref={dropOffTime}
                     />
                   </p>
                 </div>
@@ -305,7 +271,7 @@ export default function SimpleModal(props) {
                     <select
                       name="location"
                       id="location"
-                      onChange={handlePickupLocationChange}
+                      ref={pickupLocation}
                     >
                       <option value="Nordhavn">Nordhavn</option>
                       <option value="Sydhavn">Sydhavn</option>
@@ -316,7 +282,7 @@ export default function SimpleModal(props) {
                     <select
                       name="location"
                       id="location"
-                      onChange={handleDropOffLocationChange}
+                      ref={dropOffLocation}
                     >
                       <option value="Nordhavn">Nordhavn</option>
                       <option value="Sydhavn">Sydhavn</option>
@@ -330,7 +296,7 @@ export default function SimpleModal(props) {
                     <select
                       name="location"
                       id="location"
-                      onChange={handleGroupChange}
+                      ref={group}
                     >
                       <option value="A">A</option>
                       <option value="B">B</option>
@@ -351,6 +317,7 @@ export default function SimpleModal(props) {
                       <select
                         name="status"
                         id="status"
+                        ref={status}
                         defaultValue={props.o.carStatus}
                       >
                         <option value="Awaiting Transfer">Delivered</option>

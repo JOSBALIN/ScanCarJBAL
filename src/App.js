@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home.js';
+import BookingOverview from './pages/BookingOverview.js';
 import Management from './pages/Management.js';
 import CarPrem from './pages/CarPrem.js';
 import Sidebar from "./components/sidebar.js";
@@ -23,7 +23,7 @@ export default function App() {
         <NavBar/>
         <Sidebar/>
         <Routes>
-            <Route exact path='/' element={<Home/>}></Route>
+            <Route exact path='/' element={<BookingOverview/>}></Route>
             <Route path='/management' element={<Management/>}></Route>
             <Route path='/carprem' element={<CarPrem/>}></Route>
         </Routes>

@@ -19,7 +19,7 @@ import Parse from 'parse/dist/parse.min.js';
   console.log(queryResult);
   // Mapping all cols + rows
   const carList = queryResult.map((car) => {return {
-    
+    objectID: car.id,
     group: car.get("group"),
     status : car.get("Status"),
     parkingSpace: car.get("parkingSpace"),

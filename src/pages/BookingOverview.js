@@ -1,16 +1,16 @@
 import * as React from "react";
 //import logo from "../logo.svg";
-import "./Home.css";
+import "./BookingOverview.css";
 import "../App.css";
 import CheckBoxes from "../components/bookingoverview/checkboxes";
-import GridTable from "../components/bookingoverview/gridtable";
+import GridTable from "../components/bookingoverview/BookingOverviewTable";
 import {getAllBookings} from "../components/bookingoverview/BookingsAPI";
 import "reactjs-popup/dist/index.css";
 import SimpleModal from "../components/SimpleModal";
 import { listItemAvatarClasses } from "@mui/material";
 
 
-function Home() {
+function BookingOverview() {
   const [visible, setVisible] = React.useState(false);
 
   const [listOfBookings, setListOfBookings] = React.useState([]);
@@ -152,4 +152,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default BookingOverview;

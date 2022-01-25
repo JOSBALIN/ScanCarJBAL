@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import "./CreateCarModal.css";
 import EditIcon from "@mui/icons-material/Edit";
-import { addCar } from "./carComponent";
+import { addCar } from "./CarsAPI";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -78,10 +78,6 @@ export default function CreateCarModal() {
             <div>
               <form className="row" id="bookinginformation">
                 <p>
-                  <label>Name</label>
-                  <input type="text" name="Name"/>
-                </p>
-                <p>
                       <label>Group</label>
                       <select name="location" id="location">
                         <option value="A">A</option>
@@ -94,19 +90,27 @@ export default function CreateCarModal() {
                     </p>
                 <p>
                   <label>Make</label>
-                  <input type="text" name="make"/>
+                  <input type="text" name="Make"/>
                 </p>
                 <p>
                   <label>Model</label>
-                  <input type="text" name="model"/>
+                  <input type="text" name="Model"/>
                 </p>
                 <p>
                   <label>Color</label>
-                  <input type="text" name="color"/>
+                  <input type="text" name="Color"/>
                 </p>
                 <p>
                   <label>License plate</label>
                   <input type="text" name="License ID"/>
+                </p>
+                <p>
+                  <label>Door Count</label>
+                  <input type="number" name="Door Count"/>
+                </p>
+                <p>
+                  <label>Location</label>
+                  <input type="text" name="Door Count"/>
                 </p>
               </form>
             </div>
