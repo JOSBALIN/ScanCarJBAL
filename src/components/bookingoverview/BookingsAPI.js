@@ -21,9 +21,11 @@ import Parse from 'parse/dist/parse.min.js';
   // Run the query to retrieve all objects on Cars class, with their respective attributes
   console.log(queryResult);
   // Mapping all cols + rows
-  const bookingList = queryResult.map((booking) => {return {
+  const bookingList = queryResult.map((booking) => {
+    console.log(booking)
+    return {
 
-    objectId: booking.get("objectId"),
+    objectID: booking.id,
     bookingID: booking.get("bookingID"),
     fullName: booking.get("fullName"),
     status : booking.get("status"),
@@ -47,10 +49,10 @@ import Parse from 'parse/dist/parse.min.js';
   }
 }
 
-export async function deleteBooking(bookingID) {
+export async function deleteBooking(objectId) {
     const query = new Parse.Query('Booking');
     // find Booking by its ID
-    query.equalTo('bookingID', bookingID);
+    query.equalTo('objectId', objectId);
     // Running query
     const Booking = await query.first();
     // .destroy to delete object
@@ -70,13 +72,13 @@ export async function deleteBooking(bookingID) {
   export async function updateBooking (props) {
     // Create a new todo parse object instance and set todo id
     let Booking = new Parse.Object('Booking');
-    Booking.set('bookingID', props.bookingID);
+    Booking.set('objectId', props.objectID);
     // Set new done value and save Parse Object changes
     Booking.set('fullName', props.fullName);
     try {
       await Booking.save();
       // Success
-      window.alert('Success!', 'Todo updated!');
+      window.alert('Success!', 'Booking updated!');
       // Refresh todos list
       return true;
     } catch (error) {
@@ -104,13 +106,11 @@ export async function deleteBooking(bookingID) {
     Booking.set("pickupDate", props.pickupDate);
     Booking.set("pickupLocation", props.pickupLocation);
 
-    Booking.set("done", false);
-    // After setting the todo values, save it on the server
+    // After setting the booking values, save it on the server
     try {
         await Booking.save();
         // Success
-        window.alert('Success!', 'Todo created!');
-        // Refresh todos list to show the new one (you will create this function later)
+        window.alert('Success!', 'Booking created!');
         return true;
     } catch (error) {
       // Error can be caused by lack of Internet connection

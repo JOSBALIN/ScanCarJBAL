@@ -4,9 +4,9 @@
 
 
 #modalDiv{
-    background-color: #EBEBEB;
+    background-color: red;
     position:absolute;
-    width:50%;
+    width:100%;
     min-width:570px;
     max-width: 750px;
     top: 50%;

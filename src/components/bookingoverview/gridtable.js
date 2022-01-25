@@ -7,6 +7,7 @@ import {deleteBooking} from "./BookingsAPI";
 import "../SimpleModal.css"
 import "./gridtable.css"
 
+
 function alertDelete(props) {
   if(window.confirm("Are you sure you want to delete this entry?\nThis cannot be undone") == true){
       deleteBooking(props)
@@ -41,6 +42,9 @@ const columns = [
   { field: "carStatus",  headerName: "Status", minWidth: 90, align: "left", headerAlign:"center" },
   { field: "licenseID",  headerName: "Driver's License", minWidth: 90, align: "left", headerAlign:"center", hide:true },
   { field: "address",  headerName: "Address", minWidth: 90, align: "left", headerAlign:"center", hide:true },
+
+  // Hidden columns are used to pass information to the simpleModal. Non-ideal workaround, but effective since it avoids an API call.
+  { field: "objectID",  headerName: "Object ID", minWidth: 110, align: "center", headerAlign:"center", hide:true },
   { field: "pickupDate",  hide:true },
   { field: "pickupTime",  hide:true },
   { field: "returnDate",  hide:true },
@@ -56,6 +60,7 @@ const columns = [
     width: 20,
     renderCell: (params) => {
 
+      // onClick function to fetch row information (bookingID)
       const onClick = () => {
         
         const api = params.api;
@@ -97,11 +102,10 @@ const columns = [
           .forEach(
             (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
           );
-
-          return thisRow.id
+          return thisRow.objectID
       };
 
-      // HTML representation, deletebutton that executes alertDelete with onClick() as parameter
+      // HTML representation, deletebutton that executes alertDelete with return from onClick() as parameter
       return <button className="deleteButton" onClick={() => { alertDelete(onClick())}} ><DeleteIcon/></button>
     }
   },
@@ -151,6 +155,8 @@ export default function GridTable(props) {
               pickupTime: booking.pickupDate.getHours() +":"+addZero(booking.pickupDate.getMinutes()),
               returnDate: booking.dropOffDate.getFullYear()+"-"+months[booking.dropOffDate.getMonth()]+"-"+addZero(booking.dropOffDate.getDate()),
               returnTime: booking.dropOffDate.getHours() +":"+addZero(booking.dropOffDate.getMinutes()),
+              // Object ID necessary to link up with database
+              objectID: booking.objectID, 
             }
           ))
 
