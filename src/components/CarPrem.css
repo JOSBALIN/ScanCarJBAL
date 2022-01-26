@@ -46,6 +46,7 @@ input {
   margin-left: auto;
   margin-right: auto;
   border-radius: 1em;
+  min-width:1140px;
 }
 
 /* modules, styling rules for each "box of content", based on design guide */

@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./managementmodules.css";
+import "./ManagementModules.css";
 import {Bar} from 'react-chartjs-2';
 import {CategoryScale} from 'chart.js';
 import {Pie, Doughnut} from 'react-chartjs-2';

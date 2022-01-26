@@ -2,7 +2,7 @@ import * as React from "react";
 //import logo from "../logo.svg";
 import "./BookingOverview.css";
 import "../App.css";
-import CheckBoxes from "../components/bookingoverview/checkboxes";
+import CheckBoxes from "../components/bookingoverview/Checkboxes";
 import GridTable from "../components/bookingoverview/BookingOverviewTable";
 import {getAllBookings} from "../components/bookingoverview/BookingsAPI";
 import "reactjs-popup/dist/index.css";

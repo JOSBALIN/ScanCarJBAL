@@ -1,7 +1,6 @@
 import "./CarOverviewGrid.css";
 import "../CarPrem.css";
-import ParkingLotSpot from "./parkingLotSpot.js";
-import { getAllCars } from './CarsAPI';
+import ParkingLotSpot from "./ParkingLotSpots.js";
 import * as React from 'react';
 
 
@@ -17,8 +16,14 @@ for (let i = 1; i <= 42; i++) {
     id:lotName,
     status:"",
     licenseplate:"",
-  }
+    make:"",
+    model:"",
+    color:"",
+    doorCount:"",
+    fuelType:"",
+    }
 } 
+
 
 
 
@@ -42,6 +47,11 @@ export default function LotOverview(props) {
           // update parking spot with information to match car
           parkingSpots[j].status = currentCar.status;
           parkingSpots[j].licenseplate = currentCar.licensePlate;
+          parkingSpots[j].make = currentCar.make;
+          parkingSpots[j].model = currentCar.model;
+          parkingSpots[j].color = currentCar.color;
+          parkingSpots[j].doorCount = currentCar.doorCount;
+          parkingSpots[j].fuelType = currentCar.fuelType;
         }
       }
     }
@@ -59,8 +69,16 @@ function drawA(props){
     let currentSpot = props[i]
     let className = "small-grid-box " + currentSpot.status
     aSpots.push(
-      <ParkingLotSpot id={currentSpot.id} className={className}/>
-    )
+      <ParkingLotSpot
+        id={currentSpot.id}
+        className={className}
+        make={currentSpot.make}
+        model={currentSpot.model}
+        color={currentSpot.color}
+        doorCount={currentSpot.doorCount}
+        fuelType={currentSpot.fuelType}
+      />
+    );
   }
   return aSpots
 }

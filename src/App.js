@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BookingOverview from './pages/BookingOverview.js';
 import Management from './pages/Management.js';
 import CarPrem from './pages/CarPrem.js';
-import Sidebar from "./components/sidebar.js";
-import NavBar from './components/navbar.js';
+import SideBar from "./components/SideBar.js";
+import NavBar from './components/NavBar.js';
 
 // Import Parse minified version
 import Parse from 'parse/dist/parse.min.js';
@@ -21,7 +21,7 @@ export default function App() {
       <Router>
         <div>
         <NavBar/>
-        <Sidebar/>
+        <SideBar/>
         <Routes>
             <Route exact path='/' element={<BookingOverview/>}></Route>
             <Route path='/management' element={<Management/>}></Route>

@@ -86,6 +86,7 @@ export const CarComponent = () => {
       <button onClick={addCar}>Add Car</button>
       <button onClick={fetchCar}>Fetch Car</button>
       <button onClick={getAllCars}>Fetch All Cars</button>
+      
       {car !== null && (
         <div>
           <p>{`Name: ${car.get('licensePlate')}`}</p>

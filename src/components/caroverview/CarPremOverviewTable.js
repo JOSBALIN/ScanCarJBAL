@@ -21,17 +21,18 @@ const useStyles = makeStyles({
     marginBottom: "1px",
     color: "red",
     margin:"0px",
-    outline:"none",    
+    outline:"none",
+    minWidth:"510px"  
   },
 });
 
 /* Defines columns to be used in the grid, following MUI-Datagrid API */
 const columns = [
-  { field: "group",  headerName: "Group", minWidth: 110, align: "center", headerAlign:"center" },
-  { field: "make",  headerName: "Make", minWidth: 110, sortable:false },
-  { field: "model",  headerName: "Model", minWidth: 90, align: "center", headerAlign:"center" },
-  { field: "lotno",  headerName: "Lot no.", minWidth: 100, sortable:false, flex: 0.3, align: "center", headerAlign:"center" },
-  { field: "status",  headerName: "Status", minWidth: 100, sortable:false, flex: 0.3, align: "center", headerAlign:"center" },
+  { field: "lotno",  headerName: "Lot no.", minWidth: 20, sortable:false, align: "center", headerAlign:"center" },
+  { field: "group",  headerName: "Group", minWidth: 40, align: "center", headerAlign:"center" },
+  { field: "make",  headerName: "Make", minWidth: 90, sortable:false },
+  { field: "model",  headerName: "Model", minWidth: 30, align: "center", headerAlign:"center" },
+  { field: "status",  headerName: "Status", minWidth: 30, sortable:false, flex: 0.3, align: "center", headerAlign:"center" },
   // Hidden columns are used to pass information to the simpleModal. Non-ideal workaround, but effective since it avoids an API call.
   { field: "id",  headerName: "Object ID", minWidth: 110, align: "center", headerAlign:"center", hide:true },
   { field: "fuelType",  headerName: "Fuel Type", minWidth: 110, align: "center", headerAlign:"center", hide:true },

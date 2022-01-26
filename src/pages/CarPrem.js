@@ -1,6 +1,5 @@
 import * as React from 'react';
 import "../components/CarPrem.css"
-import BasicTableOverview from '../components/caroverview/tableoverview';
 import CarPremOverviewTable from '../components/caroverview/CarPremOverviewTable';
 import LotOverview from "../components/caroverview/CarOverview";
 import CreateCarModal from "../components/caroverview/CreateCarModal";

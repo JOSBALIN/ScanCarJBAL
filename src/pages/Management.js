@@ -1,6 +1,6 @@
 import * as React from 'react';
-import FleetStatus from "../components/management/fleetstatus";
-import CarTransfer from '../components/management/mtransfer';
+import FleetStatus from "../components/management/FleetStatus";
+import CarTransfer from '../components/management/ManagementTransfer';
 import "../App.css";
 
 
