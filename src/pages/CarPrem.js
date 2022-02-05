@@ -2,7 +2,7 @@ import * as React from 'react';
 import "../components/CarPrem.css"
 import CarPremOverviewTable from '../components/caroverview/CarPremOverviewTable';
 import LotOverview from "../components/caroverview/CarOverview";
-import CreateCarModal from "../components/caroverview/CreateCarModal";
+import CarModal from "../components/caroverview/CreateCarModal";
 import { getAllCars } from '../components/caroverview/CarsAPI';
 
 function Home() {
@@ -45,9 +45,12 @@ function Home() {
               <div className="column">
                 <div className="module" id="overview">
                   <div className="moduletitle">
-                  <h2>Overview</h2> <CreateCarModal/>
+                  <h2>Overview</h2>
                   </div>
                   <CarPremOverviewTable listOfCars={listOfCars} />
+                  <div id="createCar">
+                  <CarModal isNew={true}/>
+                  </div>
                 </div>
               </div>
               <div className="columns">

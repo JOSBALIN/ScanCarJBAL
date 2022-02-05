@@ -91,7 +91,15 @@ function drawA(props){
       let currentSpot = props[i+14]
       let className = "small-grid-box " + currentSpot.status
       bSpots.push(
-        <ParkingLotSpot id={currentSpot.id} className={className}/>
+        <ParkingLotSpot
+        id={currentSpot.id}
+        className={className}
+        make={currentSpot.make}
+        model={currentSpot.model}
+        color={currentSpot.color}
+        doorCount={currentSpot.doorCount}
+        fuelType={currentSpot.fuelType}
+      />
       )
     }
   return bSpots
@@ -103,7 +111,15 @@ for(let i = 1; i <= 14; i++){
   let currentSpot = props[i+28]
   let className = "small-grid-box " + currentSpot.status
   cSpots.push(
-    <ParkingLotSpot id={currentSpot.id} className={className}/>
+    <ParkingLotSpot
+        id={currentSpot.id}
+        className={className}
+        make={currentSpot.make}
+        model={currentSpot.model}
+        color={currentSpot.color}
+        doorCount={currentSpot.doorCount}
+        fuelType={currentSpot.fuelType}
+      />
   )
 }
 return cSpots

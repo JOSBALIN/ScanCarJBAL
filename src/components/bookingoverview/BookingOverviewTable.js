@@ -1,11 +1,11 @@
 import React from "react";
 import { DataGrid} from "@mui/x-data-grid";
-import SimpleModal from "../SimpleModal";
+import BookingModal from "./BookingModal";
 import { makeStyles } from "@mui/styles";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {deleteBooking} from "./BookingsAPI";
 
-import "../SimpleModal.css"
+import "./BookingModal.css"
 import "./BookingOverviewTable.css"
 
 
@@ -78,7 +78,7 @@ const columns = [
       };
      
 
-      return <SimpleModal o={onClick()} isNew={false}/>
+      return <BookingModal o={onClick()} isNew={false}/>
     }
   },
 

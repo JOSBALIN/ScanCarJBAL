@@ -1,9 +1,8 @@
 import { DataGrid} from "@mui/x-data-grid";
-import SimpleModal from "../SimpleModal";
+import CarModal from "./EditCarModal";
 import { makeStyles } from "@mui/styles";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import "../SimpleModal.css"
 import "./CarPremOverviewTable.css"
 
 
@@ -30,10 +29,10 @@ const useStyles = makeStyles({
 const columns = [
   { field: "lotno",  headerName: "Lot no.", minWidth: 20, sortable:false, align: "center", headerAlign:"center" },
   { field: "group",  headerName: "Group", minWidth: 40, align: "center", headerAlign:"center" },
-  { field: "make",  headerName: "Make", minWidth: 90, sortable:false },
-  { field: "model",  headerName: "Model", minWidth: 30, align: "center", headerAlign:"center" },
+  { field: "model",  headerName: "Model", minWidth: 30, align: "center", flex: 0.6, headerAlign:"center" },
   { field: "status",  headerName: "Status", minWidth: 30, sortable:false, flex: 0.3, align: "center", headerAlign:"center" },
   // Hidden columns are used to pass information to the simpleModal. Non-ideal workaround, but effective since it avoids an API call.
+  { field: "make",  headerName: "Make", minWidth: 90, sortable:false, hide:true},
   { field: "id",  headerName: "Object ID", minWidth: 110, align: "center", headerAlign:"center", hide:true },
   { field: "fuelType",  headerName: "Fuel Type", minWidth: 110, align: "center", headerAlign:"center", hide:true },
   { field: "doorCount",  headerName: "Door Count", minWidth: 110, align: "center", headerAlign:"center", hide:true },
@@ -67,7 +66,7 @@ const columns = [
       };
      
 
-      return <SimpleModal o={onClick()} isNew={false}/>
+      return <CarModal o={onClick()}/>
     }
   },
 
@@ -103,8 +102,8 @@ export default function CarPremOverviewTable(props) {
             {
               group: car.group,
               make: car.make,
-              model: car.model,
-              lotno: car.parkingSpace,
+              model: car.make + " " + car.model,
+              lotno: car.parkingSpace.toUpperCase(),
               status: car.status,
 
               fuelType: car.fuelType,

@@ -6,8 +6,9 @@ import CheckBoxes from "../components/bookingoverview/Checkboxes";
 import GridTable from "../components/bookingoverview/BookingOverviewTable";
 import {getAllBookings} from "../components/bookingoverview/BookingsAPI";
 import "reactjs-popup/dist/index.css";
-import SimpleModal from "../components/SimpleModal";
+import BookingModal from "../components/bookingoverview/BookingModal";
 import { listItemAvatarClasses } from "@mui/material";
+
 
 
 function BookingOverview() {
@@ -40,7 +41,7 @@ function BookingOverview() {
                 <h3>Filter Bookings</h3>
               </div>
               <div>
-                <SimpleModal o={emptyRecord} isNew={true} isOpen={false} lastBookingID={lastBookingID}/>
+                <BookingModal o={emptyRecord} isNew={true} isOpen={false} lastBookingID={lastBookingID}/>
               </div>
             </div>
             <div className="row">

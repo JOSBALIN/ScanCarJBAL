@@ -40,17 +40,18 @@ import Parse from 'parse/dist/parse.min.js';
   }
 }
 
-export async function addCar(props) {
+export async function createCar(props) {
   try {
     // create a new Parse Object instance
     const Car = new Parse.Object('Car');
     // define the attributes you want for your Object
     Car.set('licensePlate', props.licensePlate);
     Car.set('group', props.group);
-    // Car.set('make', props.make);
+    Car.set('make', props.make);
     // Car.set('Status', props.status);
-    // Car.set('model', props.model);
-    // Car.set('color', props.color);
+    Car.set('model', props.model);
+    Car.set('color', props.color);
+    Car.set('parkingSpace', props.parkingSpace);
     // save it on Back4App Data Store
     await Car.save();
     alert('Car saved!');
@@ -83,7 +84,7 @@ export const CarComponent = () => {
 
   return (
     <div>
-      <button onClick={addCar}>Add Car</button>
+      <button onClick={createCar}>Add Car</button>
       <button onClick={fetchCar}>Fetch Car</button>
       <button onClick={getAllCars}>Fetch All Cars</button>
       
