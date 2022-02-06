@@ -7,6 +7,8 @@ import GridTable from "../components/bookingoverview/BookingOverviewTable";
 import {getAllBookings} from "../components/bookingoverview/BookingsAPI";
 import "reactjs-popup/dist/index.css";
 import BookingModal from "../components/bookingoverview/BookingModal";
+import CustomerModal from "../components/customeroverview/CustomerModal";
+import CustomerOverviewModal from "../components/customeroverview/CustomerOverviewModal";
 import { listItemAvatarClasses } from "@mui/material";
 
 
@@ -19,10 +21,8 @@ function BookingOverview() {
     
     React.useEffect(async() => { 
       const allBookings = await getAllBookings();
-      console.log(allBookings);
       setListOfBookings(allBookings);
       setLastBookingID(allBookings[allBookings.length - 1].bookingID)
-      console.log(lastBookingID)
     }, [])
 
   const emptyRecord = {
@@ -67,6 +67,8 @@ function BookingOverview() {
                 </p>
               </form>
             </div>
+            <CustomerOverviewModal/>
+            <CustomerModal o={emptyRecord} isNew={true} isOpen={false} />
             
           
             <button onClick={() => setVisible(!visible)} id="advfilters">

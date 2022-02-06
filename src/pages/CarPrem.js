@@ -7,22 +7,20 @@ import { getAllCars } from '../components/caroverview/CarsAPI';
 
 function Home() {
     const [listOfCars, setListOfCars] = React.useState([]); 
-    const [loading, setLoading] = React.useState("aa"); 
+    const [loading, setLoading] = React.useState("Loading"); 
     
 
     React.useEffect(async() => { 
       const allCars = await getAllCars();
-      console.log(allCars);
       setListOfCars(allCars); 
     }, [])
 
     setTimeout(() => {
-      setLoading("bb")
-      console.log("bb")
+      setLoading("Done")
       }, 700)
 
     function parkingSpaces() {
-      if (loading.localeCompare("aa")) {
+      if (loading.localeCompare("Loading")) {
         return (
           <LotOverview listOfCars={listOfCars}/>
         );

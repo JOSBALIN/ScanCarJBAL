@@ -55,8 +55,6 @@ export default function LotOverview(props) {
         }
       }
     }
-    console.log(parkingSpots)
-    console.log(listOfCars)
     return parkingSpots
   }
 

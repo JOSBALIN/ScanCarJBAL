@@ -16,7 +16,6 @@ import Parse from 'parse/dist/parse.min.js';
   let queryResult = await query.find();
   
   // Run the query to retrieve all objects on Cars class, with their respective attributes
-  console.log(queryResult);
   // Mapping all cols + rows
   const carList = queryResult.map((car) => {return {
     objectID: car.id,
@@ -33,7 +32,6 @@ import Parse from 'parse/dist/parse.min.js';
 
 }})
   
-  console.log("Cars retrieved" + carList);
   return carList;
   } catch (error) {
       console.log("Error retrieving cars" + error);   
@@ -42,58 +40,38 @@ import Parse from 'parse/dist/parse.min.js';
 
 export async function createCar(props) {
   try {
-    // create a new Parse Object instance
-    const Car = new Parse.Object('Car');
-    // define the attributes you want for your Object
-    Car.set('licensePlate', props.licensePlate);
-    Car.set('group', props.group);
-    Car.set('make', props.make);
-    // Car.set('Status', props.status);
-    Car.set('model', props.model);
-    Car.set('color', props.color);
-    Car.set('parkingSpace', props.parkingSpace);
-    // save it on Back4App Data Store
-    await Car.save();
-    alert('Car saved!');
+    if (checkParkingSpot(props.parkingSpace)) {
+      // create a new Parse Object instance
+      const Car = new Parse.Object("Car");
+      // define the attributes you want for your Object
+      Car.set("licensePlate", props.licensePlate);
+      Car.set("group", props.group);
+      Car.set("make", props.make);
+      // Car.set('Status', props.status);
+      Car.set("model", props.model);
+      Car.set("color", props.color);
+      Car.set("parkingSpace", props.parkingSpace);
+      // save it on Back4App Data Store
+      await Car.save();
+      alert("Car saved!");
+    }
   } catch (error) {
-    console.log('Error saving new car: ', error);
+    console.log("Error saving new car: ", error);
   }
 }
 
-export const CarComponent = () => {
-  // State variables
-  const [car, setCar] = useState(null);
-
-
-  async function fetchCar() {
-    // create your Parse Query using the Person Class you've created
-    const query = new Parse.Query('Car');
-    // use the equalTo filter to look for user which the name is John. this filter can be used in any data type
-    query.equalTo('licensePlate', '0010pcx');
-    // run the query
-    const Car = await query.first();
-    // access the Parse Object attributes
-    console.log('person name: ', Car.get('name'));
-    console.log('person email: ', Car.get('email'));
-    console.log('person id: ', Car.id);
-    setCar(Car);
+export async function checkParkingSpot(props) {
+  const query = new Parse.Query('Car');
+  // use the equalTo filter to look for user which the name is John. this filter can be used in any data type
+  query.equalTo('parkingSpace', props.toLowerCase());
+  // run the query
+  const Car = await query.first();
+  console.log(props)
+  console.log(Car)
+  if(Car == null){
+    return false
+  } else {
+    return true
   }
 
-  
-
-
-  return (
-    <div>
-      <button onClick={createCar}>Add Car</button>
-      <button onClick={fetchCar}>Fetch Car</button>
-      <button onClick={getAllCars}>Fetch All Cars</button>
-      
-      {car !== null && (
-        <div>
-          <p>{`Name: ${car.get('licensePlate')}`}</p>
-          <p>{`Email: ${car.get('group')}`}</p>
-        </div>
-      )}
-    </div>
-  );
-};
+}
