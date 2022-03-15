@@ -5,6 +5,7 @@ import Modal from "@material-ui/core/Modal";
 import "./CustomerModal.css";
 import EditIcon from "@mui/icons-material/Edit";
 import { createCustomer, deleteCustomer, updateCustomer } from "./CustomersAPI";
+import GridTable from "./CustomerBookingOverviewTable";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,9 +40,10 @@ export default function CustomerModal(props) {
       licenseID: licenseID.current.value,
     };
     //
-    console.log(prop)
+    console.log(prop);
     createCustomer(prop);
     handleClose();
+    props.update()
   };
 
   const handleClickUpdate = () => {
@@ -57,7 +59,7 @@ export default function CustomerModal(props) {
 
   const handleOpen = () => {
     setOpen(true);
-    console.log(props)
+    console.log(props);
   };
 
   const handleClose = () => {
@@ -74,13 +76,33 @@ export default function CustomerModal(props) {
     }
   }
 
+  function renderTable() {
+    if (!isNew) {
+      
+      if ((<GridTable licenseID={props.o.id} />)) {
+        return( 
+          <div className="module">
+          <div className="row" id="customerInformationTop">
+              {" "}
+              <div className="column">
+                <h4>Registered bookings</h4>
+              </div>
+              </div>
+        <GridTable licenseID={props.o.id} />
+        </div>
+          );
+      } else {
+        return (<h1>NO BOOKING</h1>);
+      }
+    }
+  }
+
   function ModalButton() {
     if (isNew) {
       return (
         <Button id="newBooking" onClick={handleOpen}>
           + New Customer
         </Button>
-        
       );
     } else {
       return (
@@ -104,7 +126,7 @@ export default function CustomerModal(props) {
         <div className={classes.paper} id="modalDiv">
           <div className="modalTitle">
             {" "}
-            <h3>{isNew ? "New Booking" : "Edit Customer"}</h3>
+            <h3>{isNew ? "New Customer" : "Edit Customer"}</h3>
           </div>
           <div className="module">
             <div className="row" id="customerInformationTop">
@@ -113,11 +135,7 @@ export default function CustomerModal(props) {
                 <h4>Customer information</h4>
               </div>
               <div className="column" id="cartype">
-                {isNew ? (
-                  "New Customer"
-                ) : (
-                  <h5>license ID: {props.o.id}</h5>
-                )}
+                {isNew ? "" : <h5>license ID: {props.o.id}</h5>}
               </div>
             </div>
             <div>
@@ -149,19 +167,25 @@ export default function CustomerModal(props) {
                     defaultValue={props.o.address}
                   />
                 </p>
-                <p>
-                  <label>License ID</label>
-                  <input
-                    type="text"
-                    name="licenseID"
-                    ref={licenseID}
-                    defaultValue={props.o.id}
-                    disabled={!isNew}
-                  />
-                </p>
+                {isNew ? (
+                  <p>
+                    <label>License ID</label>
+                    <input
+                      type="text"
+                      name="licenseID"
+                      ref={licenseID}
+                      defaultValue={props.o.id}
+                    />
+                  </p>
+                ) : (
+                  ""
+                )}
               </form>
             </div>
           </div>
+          
+
+            {renderTable()}
 
           <div id="buttonDiv">
             <button
@@ -191,6 +215,7 @@ export default function CustomerModal(props) {
                 className="modalButton"
                 id="confirmButton"
                 onClick={() => {
+                  props.update()
                   handleClickNew();
                 }}
               >

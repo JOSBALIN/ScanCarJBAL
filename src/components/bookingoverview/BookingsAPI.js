@@ -121,6 +121,41 @@ export async function createBooking(props) {
   }
 }
 
+export async function getCustomerBookings(props) {
+  console.log(props)
+  try {
+    // Creating new query for the car class, include pointer keys to retrieve associated information
+    let query = new Parse.Query("Booking");
+    query.equalTo("customerLicenseID", props);
+
+    let queryResult = await query.find();
+
+    // Run the query to retrieve all objects on Bookings class, with their respective attributes
+    const bookingList = queryResult.map((booking) => {
+      return {
+        objectID: booking.id,
+        bookingID: booking.get("bookingID"),
+        fullName: booking.get("fullName"),
+        status: booking.get("status"),
+        carGroup: booking.get("carGroup"),
+        phoneNumber: booking.get("phoneNumber"),
+        address: booking.get("address"),
+        customerLicenseID: booking.get("customerLicenseID"),
+        carLicensePlate: booking.get("carLicensePlate"),
+        dropOffLocation: booking.get("dropOffLocation"),
+        dropOffDate: booking.get("dropOffDate"),
+        pickupLocation: booking.get("pickupLocation"),
+        pickupDate: booking.get("pickupDate"),
+      };
+    });
+
+    return bookingList;
+  } catch (error) {
+    console.log("Error retrieving bookings" + error);
+  }
+}
+
+
 export const BookingComponent = () => {
   // State variables
   const [booking, setBooking] = useState(null);

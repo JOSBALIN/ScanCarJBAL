@@ -46,6 +46,7 @@ export default function BookingModal(props) {
   const currentBookingID = props.lastBookingID+1;
 
 
+
   const name = React.createRef(); 
   const phoneNumber = React.createRef();   
   const address = React.createRef();
@@ -76,6 +77,7 @@ export default function BookingModal(props) {
     // 
     createBooking(prop)
       handleClose();
+      props.update()
     
   };
 

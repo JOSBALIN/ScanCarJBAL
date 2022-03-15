@@ -6,8 +6,8 @@
 #modalDiv{
     background-color: red;
     position:absolute;
-    width:100%;
-    min-width:570px;
+
+    min-width:510px;
     max-width: 750px;
     top: 50%;
     left: 50%;

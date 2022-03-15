@@ -1,9 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Lato");
 
-.MuiDataGrid-row{
-    
-}
 
 .deleteButton{
     border:none;
@@ -16,7 +13,6 @@
     background-color: inherit;
     cursor:pointer;
 }
-
 
 
 

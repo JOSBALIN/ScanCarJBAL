@@ -29,6 +29,18 @@ function BookingOverview() {
   };
 
 
+
+  function HandleGridUpdate(){
+    console.log("HASHDAHSD")
+        React.useEffect(async() => { 
+      const allBookings = await getAllBookings();
+      setListOfBookings(allBookings);
+      setLastBookingID(allBookings[allBookings.length - 1].bookingID)
+    }, [])
+
+
+  }
+
   return (
     <div className="Background">
         <div className="canvas">
@@ -41,7 +53,7 @@ function BookingOverview() {
                 <h3>Filter Bookings</h3>
               </div>
               <div>
-                <BookingModal o={emptyRecord} isNew={true} isOpen={false} lastBookingID={lastBookingID}/>
+                <BookingModal o={emptyRecord} isNew={true} isOpen={false} lastBookingID={lastBookingID} update={HandleGridUpdate()}/>
               </div>
             </div>
             <div className="row">
@@ -63,7 +75,7 @@ function BookingOverview() {
                   <input type="text" name="Address" />
                 </p>
                 <p>
-                  
+                  <button onClick={HandleGridUpdate()}>asdasdsa</button>
                 </p>
               </form>
             </div>

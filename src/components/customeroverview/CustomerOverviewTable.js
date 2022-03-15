@@ -16,7 +16,6 @@ function alertDelete(props) {
 }
 
 
-
 const useStyles = makeStyles({
   root: {
     "& .styledrows": {
@@ -101,9 +100,8 @@ const columns = [
       return <button className="deleteButton" onClick={() => { alertDelete(onClick())}} ><DeleteIcon/></button>
     }
   },
-
-
 ];
+
 
 export default function GridTable() { 
   const [listOfCustomers, setListOfCustomers] = React.useState([]);
@@ -113,11 +111,8 @@ export default function GridTable() {
       setListOfCustomers(allCustomers);
     }, [])
 
-  const emptyRecord = {
-  };
     
   const classes = useStyles({m:400});
-
 
   return (
     <div className={classes.root} >

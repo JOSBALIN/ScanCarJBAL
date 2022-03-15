@@ -60,6 +60,8 @@ export async function createCar(props) {
   }
 }
 
+
+
 export async function checkParkingSpot(props) {
   const query = new Parse.Query('Car');
   // use the equalTo filter to look for user which the name is John. this filter can be used in any data type
