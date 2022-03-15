@@ -54,6 +54,7 @@ export async function createCar(props) {
       // save it on Back4App Data Store
       await Car.save();
       alert("Car saved!");
+      window.location.reload();
     }
   } catch (error) {
     console.log("Error saving new car: ", error);

@@ -25,7 +25,6 @@ export default function CustomerModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState();
   const isNew = props.isNew;
-  const emptyRecord = {};
 
   const name = React.createRef();
   const phoneNum = React.createRef();
@@ -91,16 +90,14 @@ export default function CustomerModal(props) {
         <GridTable licenseID={props.o.id} />
         </div>
           );
-      } else {
-        return (<h1>NO BOOKING</h1>);
-      }
+      } 
     }
   }
 
   function ModalButton() {
     if (isNew) {
       return (
-        <Button id="newBooking" onClick={handleOpen}>
+        <Button id="newCustomer" onClick={handleOpen}>
           + New Customer
         </Button>
       );
@@ -215,7 +212,6 @@ export default function CustomerModal(props) {
                 className="modalButton"
                 id="confirmButton"
                 onClick={() => {
-                  props.update()
                   handleClickNew();
                 }}
               >

@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 const columns = [
   { field: "id",  headerName: "Booking ID", minWidth: 110, align: "center", headerAlign:"center" },
   { field: "name",  headerName: "Full Name", minWidth: 140, flex: 0.6,  },
-  { field: "phoneNum",  headerName: "Phone", minWidth: 110, sortable:false },
+  { field: "phoneNum",  headerName: "Phone", minWidth: 140, sortable:false },
   { field: "carGroup",  headerName: "Group", minWidth: 90, align: "center", headerAlign:"center" },
   { field: "pickup",  headerName: "Pick-up", minWidth: 100, sortable:false, flex: 0.3, align: "center", headerAlign:"center" },
   { field: "return",  headerName: "Return", minWidth: 100, sortable:false, flex: 0.3, align: "center", headerAlign:"center" },

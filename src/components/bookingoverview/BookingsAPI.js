@@ -50,6 +50,7 @@ export async function deleteBooking(objectId) {
   try {
     await Booking.destroy();
     window.alert("Success!", "Booking deleted!");
+    window.location.reload();
     // read method to update list. Not implemented yet.
     //   readBookings();
     return true;
@@ -81,7 +82,7 @@ export async function updateBooking(props) {
     await Booking.save();
     // Success
     window.alert("Success!", "Booking updated!");
-    // Refresh todos list
+    window.location.reload();
     return true;
   } catch (error) {
     // Error can be caused by lack of Internet connection
@@ -113,6 +114,7 @@ export async function createBooking(props) {
     await Booking.save();
     // Success
     window.alert("Success!", "Booking created!");
+    window.location.reload();
     return true;
   } catch (error) {
     // Error can be caused by lack of Internet connection

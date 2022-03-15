@@ -75,12 +75,10 @@ function BookingOverview() {
                   <input type="text" name="Address" />
                 </p>
                 <p>
-                  <button onClick={HandleGridUpdate()}>asdasdsa</button>
                 </p>
               </form>
             </div>
             <CustomerOverviewModal/>
-            <CustomerModal o={emptyRecord} isNew={true} isOpen={false} />
             
           
             <button onClick={() => setVisible(!visible)} id="advfilters">

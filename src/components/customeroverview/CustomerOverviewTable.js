@@ -35,8 +35,8 @@ const useStyles = makeStyles({
 const columns = [
   { field: "id",  headerName: "License ID", minWidth: 110, align: "center", headerAlign:"center" },
   { field: "name",  headerName: "Full Name", minWidth: 140, flex: 0.6,  },
-  { field: "phoneNum",  headerName: "Phone", minWidth: 110, sortable:false },
-  { field: "address",  headerName: "Address", minWidth: 90, align: "left", headerAlign:"center", hide:false },
+  { field: "phoneNum",  headerName: "Phone", minWidth: 130, sortable:false },
+  { field: "address",  headerName: "Address", minWidth: 150, flex: 0.5, align: "left", headerAlign:"center", hide:false },
 
   // Hidden columns are used to pass information to the simpleModal. Non-ideal workaround, but effective since it avoids an API call.
   { field: "objectID",  headerName: "Object ID", minWidth: 110, align: "center", headerAlign:"center", hide:true },

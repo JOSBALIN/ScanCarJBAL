@@ -6,6 +6,9 @@ import {Pie, Doughnut} from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Chart }            from 'react-chartjs-2'
 
+import {getAllCars} from "../caroverview/CarsAPI";
+
+
 /* State details for Doughnut chart */
 const state = {
   labels: ['Rented', 'Available', 'Maintenance'],

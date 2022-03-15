@@ -3,6 +3,7 @@ import { DataGrid} from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {deleteBooking, getCustomerBookings} from "../bookingoverview/BookingsAPI";
+import BookingModal from "../bookingoverview/BookingModal"
 
 import "./CustomerOverviewTable.css"
 
@@ -75,7 +76,7 @@ const columns = [
           return thisRow
       };
      
-return <p>"aaa"</p>
+return <BookingModal o={onClick()} isNew={false}/>
       //return <BookingModal o={onClick()} isNew={false}/>
     }
   },

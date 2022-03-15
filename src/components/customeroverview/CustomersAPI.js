@@ -42,8 +42,7 @@ export async function deleteCustomer(objectId) {
   try {
     await Customer.destroy();
     window.alert("Success!", "Customer deleted!");
-    // read method to update list. Not implemented yet.
-    //   readBookings();
+    window.location.reload();
     return true;
   } catch (error) {
     // Error can be caused by lack of Internet connection
@@ -65,7 +64,7 @@ export async function updateCustomer(props) {
     await Customer.save();
     // Success
     window.alert("Success!", "Customer updated!");
-    // Refresh todos list
+    window.location.reload();
     return true;
   } catch (error) {
     // Error can be caused by lack of Internet connection
